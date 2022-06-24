@@ -1,7 +1,7 @@
-KERNEL_VERSION = linux-5.15.47
-KERNEL_REMOTE = https://cdn.kernel.org/pub/linux/kernel/v5.x/$(KERNEL_VERSION).tar.xz
-KERNEL_TARBALL = tarballs/$(KERNEL_VERSION).tar.xz
-KERNEL_SOURCES = $(KERNEL_VERSION)
+KERNEL_VERSION = 5.19-rc3
+KERNEL_REMOTE = https://github.com/torvalds/linux/archive/refs/tags/v$(KERNEL_VERSION).tar.gz
+KERNEL_TARBALL = tarballs/v$(KERNEL_VERSION).tar.gz
+KERNEL_SOURCES = linux-$(KERNEL_VERSION)
 KERNEL_PATCHES = $(shell find patches/ -name "0*.patch" | sort)
 KERNEL_C_BUNDLE = kernel.c
 
@@ -52,7 +52,7 @@ all: $(KRUNFW_BINARY_$(OS))
 
 $(KERNEL_TARBALL):
 	@mkdir -p tarballs
-	curl $(KERNEL_REMOTE) -o $(KERNEL_TARBALL)
+	curl -L $(KERNEL_REMOTE) -o $(KERNEL_TARBALL)
 
 $(KERNEL_SOURCES): $(KERNEL_TARBALL)
 	tar xf $(KERNEL_TARBALL)

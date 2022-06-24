@@ -1,4 +1,4 @@
-From fc9753553cf1c7a6b55da3a6a864dcfe2ad28fe9 Mon Sep 17 00:00:00 2001
+From a45a3d349d1d1a9d0fe5d02f326ee996da67f3d1 Mon Sep 17 00:00:00 2001
 From: Sergio Lopez <slp@redhat.com>
 Date: Thu, 19 May 2022 22:38:26 +0200
 Subject: [PATCH 10/13] Transparent Socket Impersonation implementation
@@ -37,10 +37,10 @@ Signed-off-by: Sergio Lopez <slp@redhat.com>
  create mode 100644 net/tsi/af_tsi.h
 
 diff --git a/include/linux/socket.h b/include/linux/socket.h
-index 041d6032a348..4be58b24b6ab 100644
+index 17311ad9f9af..6ad3b2b4c7b3 100644
 --- a/include/linux/socket.h
 +++ b/include/linux/socket.h
-@@ -226,8 +226,9 @@ struct ucred {
+@@ -230,8 +230,9 @@ struct ucred {
  #define AF_MCTP		45	/* Management component
  				 * transport protocol
  				 */
@@ -51,7 +51,7 @@ index 041d6032a348..4be58b24b6ab 100644
  
  /* Protocol families, same as address families. */
  #define PF_UNSPEC	AF_UNSPEC
-@@ -278,6 +279,7 @@ struct ucred {
+@@ -282,6 +283,7 @@ struct ucred {
  #define PF_SMC		AF_SMC
  #define PF_XDP		AF_XDP
  #define PF_MCTP		AF_MCTP
@@ -60,7 +60,7 @@ index 041d6032a348..4be58b24b6ab 100644
  
  /* Maximum queue length specifiable by listen.  */
 diff --git a/net/Kconfig b/net/Kconfig
-index fb13460c6dab..f16dc21554ae 100644
+index 6b78f695caa6..87042aac730f 100644
 --- a/net/Kconfig
 +++ b/net/Kconfig
 @@ -244,6 +244,7 @@ source "net/switchdev/Kconfig"
@@ -81,10 +81,10 @@ index fbfeb8a0bb37..93b06ded75ad 100644
  obj-$(CONFIG_MCTP)		+= mctp/
 +obj-$(CONFIG_TSI)		+= tsi/
 diff --git a/net/socket.c b/net/socket.c
-index 5053eb0100e4..bb3976abd269 100644
+index 2bc8773d9dc5..f4d20c0b665e 100644
 --- a/net/socket.c
 +++ b/net/socket.c
-@@ -213,6 +213,7 @@ static const char * const pf_family_names[] = {
+@@ -214,6 +214,7 @@ static const char * const pf_family_names[] = {
  	[PF_SMC]	= "PF_SMC",
  	[PF_XDP]	= "PF_XDP",
  	[PF_MCTP]	= "PF_MCTP",
