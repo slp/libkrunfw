@@ -1,7 +1,7 @@
-From 783fa1d4860f1a3f3afdd0c72d5737301bc5b20d Mon Sep 17 00:00:00 2001
+From ab905fc902928e620c192f4482c9d83da6f8f25d Mon Sep 17 00:00:00 2001
 From: Sergio Lopez <slp@redhat.com>
 Date: Mon, 16 May 2022 15:47:50 +0200
-Subject: [PATCH 01/13] krunfw: Don't panic when init dies
+Subject: [PATCH 01/14] krunfw: Don't panic when init dies
 
 In libkrun, the isolated process runs as PID 1. When it exits,
 trigger an orderly reboot instead of panic'ing.
@@ -16,7 +16,7 @@ Signed-off-by: Sergio Lopez <slp@redhat.com>
  2 files changed, 7 insertions(+)
 
 diff --git a/kernel/exit.c b/kernel/exit.c
-index f072959fcab7..739e9a01cfe5 100644
+index 64c938ce36fe..ff93b3801d9c 100644
 --- a/kernel/exit.c
 +++ b/kernel/exit.c
 @@ -66,6 +66,7 @@
@@ -41,10 +41,10 @@ index f072959fcab7..739e9a01cfe5 100644
  #ifdef CONFIG_POSIX_TIMERS
  		hrtimer_cancel(&tsk->signal->real_timer);
 diff --git a/kernel/reboot.c b/kernel/reboot.c
-index 80564ffafabf..eae533a50f7a 100644
+index 3c35445bf5ad..496bf5010dd9 100644
 --- a/kernel/reboot.c
 +++ b/kernel/reboot.c
-@@ -257,10 +257,12 @@ void kernel_restart(char *cmd)
+@@ -256,10 +256,12 @@ void kernel_restart(char *cmd)
  	kernel_restart_prepare(cmd);
  	migrate_to_reboot_cpu();
  	syscore_shutdown();
@@ -58,5 +58,5 @@ index 80564ffafabf..eae533a50f7a 100644
  	machine_restart(cmd);
  }
 -- 
-2.35.1
+2.36.1
 

@@ -1,7 +1,7 @@
-From 384e557de62baa22d448d2fc4e7851211e59e8f2 Mon Sep 17 00:00:00 2001
+From 88ebace9b6b96893c86ee3104ce9d4e09333a26a Mon Sep 17 00:00:00 2001
 From: Sergio Lopez <slp@sinrega.org>
 Date: Fri, 10 Sep 2021 13:05:01 +0200
-Subject: [PATCH 12/13] virtio: enable DMA API if memory is restricted
+Subject: [PATCH 12/14] virtio: enable DMA API if memory is restricted
 
 When running on a system with restricted memory access, the driver
 can't have direct access to the memory. In this scenario,
@@ -15,7 +15,7 @@ Signed-off-by: Sergio Lopez <slp@redhat.com>
  2 files changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/virtio/virtio.c b/drivers/virtio/virtio.c
-index 6bace84ae37e..dbd090edd50e 100644
+index 7deeed30d1f3..bcc03ed43067 100644
 --- a/drivers/virtio/virtio.c
 +++ b/drivers/virtio/virtio.c
 @@ -180,12 +180,6 @@ static int virtio_features_ok(struct virtio_device *dev)
@@ -32,10 +32,10 @@ index 6bace84ae37e..dbd090edd50e 100644
  
  	if (!virtio_has_feature(dev, VIRTIO_F_VERSION_1))
 diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
-index 13a7348cedff..454595f1191b 100644
+index 643ca779fcc6..0a4a34724fbe 100644
 --- a/drivers/virtio/virtio_ring.c
 +++ b/drivers/virtio/virtio_ring.c
-@@ -246,6 +246,9 @@ static bool vring_use_dma_api(struct virtio_device *vdev)
+@@ -248,6 +248,9 @@ static bool vring_use_dma_api(struct virtio_device *vdev)
  	if (!virtio_has_dma_quirk(vdev))
  		return true;
  
@@ -46,5 +46,5 @@ index 13a7348cedff..454595f1191b 100644
  	/*
  	 * In theory, it's possible to have a buggy QEMU-supposed
 -- 
-2.35.1
+2.36.1
 

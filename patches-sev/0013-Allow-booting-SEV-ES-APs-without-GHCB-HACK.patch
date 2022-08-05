@@ -1,7 +1,7 @@
-From 5fe2d9490b2ae91fc59573fd476834bad478dd22 Mon Sep 17 00:00:00 2001
+From 248aeb6eae25d31831d836645e679d0e08faa9c8 Mon Sep 17 00:00:00 2001
 From: Sergio Lopez <slp@sinrega.org>
 Date: Fri, 24 Sep 2021 17:50:39 +0200
-Subject: [PATCH 13/13] Allow booting SEV-ES APs without GHCB (HACK)
+Subject: [PATCH 13/14] Allow booting SEV-ES APs without GHCB (HACK)
 
 Allow booting APs with SEV-ES enabled, by setting the trampoline at a
 well-known location, and moving sev_es_trampoline_start to the
@@ -88,5 +88,5 @@ index e38d61d6562e..69f9b735770e 100644
  
  	.section ".text32","ax"
 -- 
-2.35.1
+2.36.1
 

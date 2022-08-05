@@ -1,7 +1,7 @@
-From 1a0e27312220bfc1112766655b60689ea2d1ec6d Mon Sep 17 00:00:00 2001
+From 2f49dc59f4e62e41a9469d7fd5fd57bcad9ceefe Mon Sep 17 00:00:00 2001
 From: Jiang Wang <jiang.wang@bytedance.com>
 Date: Fri, 10 Dec 2021 12:42:16 +0100
-Subject: [PATCH 05/13] vhost/vsock: add support for vhost dgram.
+Subject: [PATCH 05/14] vhost/vsock: add support for vhost dgram.
 
 This patch supports dgram on vhost side, including
 tx and rx. The vhost send packets asynchronously.
@@ -434,5 +434,5 @@ index c0d477729282..4b6000866224 100644
  		return ret;
  	return misc_register(&vhost_vsock_misc);
 -- 
-2.35.1
+2.36.1
 

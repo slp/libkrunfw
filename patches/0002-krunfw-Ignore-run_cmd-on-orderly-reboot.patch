@@ -1,7 +1,7 @@
-From 3f52a1ff12064098ede5e5c528748ef1b12b05a6 Mon Sep 17 00:00:00 2001
+From c76707d961aba6a0d3652a54f937a9a8b24510ed Mon Sep 17 00:00:00 2001
 From: Sergio Lopez <slp@redhat.com>
 Date: Mon, 16 May 2022 16:04:27 +0200
-Subject: [PATCH 02/13] krunfw: Ignore run_cmd on orderly reboot
+Subject: [PATCH 02/14] krunfw: Ignore run_cmd on orderly reboot
 
 We don't really support restarting the conventional way, so ignore
 "run_cmd" so we can fall back to an emergency sync and reboot.
@@ -12,10 +12,10 @@ Signed-off-by: Sergio Lopez <slp@redhat.com>
  1 file changed, 4 insertions(+)
 
 diff --git a/kernel/reboot.c b/kernel/reboot.c
-index eae533a50f7a..c172da504de6 100644
+index 496bf5010dd9..f22b45c3dde6 100644
 --- a/kernel/reboot.c
 +++ b/kernel/reboot.c
-@@ -820,7 +820,11 @@ static int __orderly_reboot(void)
+@@ -818,7 +818,11 @@ static int __orderly_reboot(void)
  {
  	int ret;
  
@@ -26,7 +26,7 @@ index eae533a50f7a..c172da504de6 100644
 +#endif
  
  	if (ret) {
- 		printk_prefer_direct_enter();
+ 		pr_warn("Failed to start orderly reboot: forcing the issue\n");
 -- 
-2.35.1
+2.36.1
 

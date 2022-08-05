@@ -1,7 +1,7 @@
-From c1fda58a81857946fd5879e0ad748b6b7a700647 Mon Sep 17 00:00:00 2001
+From 9df3041766a1a379ce731f5d67b6e71f1437e04d Mon Sep 17 00:00:00 2001
 From: Jiang Wang <jiang.wang@bytedance.com>
 Date: Thu, 26 May 2022 18:43:37 +0200
-Subject: [PATCH 04/13] virtio/vsock: add support for virtio datagram
+Subject: [PATCH 04/14] virtio/vsock: add support for virtio datagram
 
 This patch add support for virtio dgram for the driver.
 Implemented related functions for tx and rx, enqueue
@@ -954,5 +954,5 @@ index ec2c2afbf0d0..7b62b6f6cc23 100644
  
  	/* Release refcnt obtained when we fetched this socket out of the
 -- 
-2.35.1
+2.36.1
 

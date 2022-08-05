@@ -1,4 +1,4 @@
-KERNEL_VERSION = 5.19-rc3
+KERNEL_VERSION = 5.19
 KERNEL_REMOTE = https://github.com/torvalds/linux/archive/refs/tags/v$(KERNEL_VERSION).tar.gz
 KERNEL_TARBALL = tarballs/v$(KERNEL_VERSION).tar.gz
 KERNEL_SOURCES = linux-$(KERNEL_VERSION)

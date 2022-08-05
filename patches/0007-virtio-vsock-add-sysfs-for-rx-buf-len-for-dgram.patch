@@ -1,7 +1,7 @@
-From 12e9f7ef42b1cf47d7bfd76dc726026fab528968 Mon Sep 17 00:00:00 2001
+From 5d2d13645db9d7b94227222edb98562ccf227f03 Mon Sep 17 00:00:00 2001
 From: Jiang Wang <jiang.wang@bytedance.com>
 Date: Thu, 26 May 2022 18:46:09 +0200
-Subject: [PATCH 07/13] virtio/vsock: add sysfs for rx buf len for dgram
+Subject: [PATCH 07/14] virtio/vsock: add sysfs for rx buf len for dgram
 
 Make rx buf len configurable via sysfs
 
@@ -97,5 +97,5 @@ index abaae264453b..5e78e9ca3e2b 100644
  
  module_init(virtio_vsock_init);
 -- 
-2.35.1
+2.36.1
 
