@@ -1,4 +1,4 @@
-From 9b38a09718d4a95890ad295c231209d62a21ceb3 Mon Sep 17 00:00:00 2001
+From 50ea7344dc82db0b7cef423827a296c391039c0e Mon Sep 17 00:00:00 2001
 From: Sergio Lopez <slp@redhat.com>
 Date: Thu, 19 May 2022 22:42:01 +0200
 Subject: [PATCH 10/21] tsi: allow hijacking sockets (tsi_hijack)
@@ -57,10 +57,10 @@ index 5ad75d15e1ad..03c79066a8e9 100644
  	pf = rcu_dereference(net_families[family]);
  	err = -EAFNOSUPPORT;
 diff --git a/net/tsi/af_tsi.c b/net/tsi/af_tsi.c
-index 7c9e4dc1a114..a1d167a8787e 100644
+index 4c862f395b83..a3e5ceeec6e6 100644
 --- a/net/tsi/af_tsi.c
 +++ b/net/tsi/af_tsi.c
-@@ -474,7 +474,7 @@ static int tsi_accept(struct socket *sock, struct socket *newsock,
+@@ -465,7 +465,7 @@ static int tsi_accept(struct socket *sock, struct socket *newsock,
  	struct socket *csocket;
  	struct tsi_sock *tsk;
  	struct tsi_sock *newtsk;
