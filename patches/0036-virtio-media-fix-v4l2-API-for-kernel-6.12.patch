@@ -1,0 +1,46 @@
+From git@z Thu Jan  1 00:00:00 1970
+Subject: [PATCH] media: virtio-media: fix v4l2 API for kernel 6.12
+From: Dorinda Bassey <dbassey@redhat.com>
+Date: Mon, 1 Sep 2026 17:00:00 +0200
+
+Kernel 6.12 lacks two helpers added in later kernels:
+
+1. file_to_v4l2_fh() - add compatibility macro
+2. kzalloc_obj() - use standard kzalloc(sizeof(*ptr), flags)
+
+Signed-off-by: Dorinda Bassey <dbassey@redhat.com>
+---
+ drivers/media/virtio/virtio_media.h        | 4 ++++
+ drivers/media/virtio/virtio_media_driver.c | 2 +-
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/virtio/virtio_media.h b/drivers/media/virtio/virtio_media.h
+index abc123456..def789012 100644
+--- a/drivers/media/virtio/virtio_media.h
++++ b/drivers/media/virtio/virtio_media.h
+@@ -18,6 +18,10 @@
+ #include <media/v4l2-mem2mem.h>
+ #include <media/videobuf2-dma-sg.h>
+
++#ifndef file_to_v4l2_fh
++#define file_to_v4l2_fh(file) ((struct v4l2_fh *)(file)->private_data)
++#endif
++
+ #define DESC_CHAIN_MAX_LEN SG_MAX_SINGLE_ALLOC
+
+ #define VIRTIO_MEDIA_DEFAULT_DRIVER_NAME "virtio-media"
+diff --git a/drivers/media/virtio/virtio_media_driver.c b/drivers/media/virtio/virtio_media_driver.c
+index abc123456..def789012 100644
+--- a/drivers/media/virtio/virtio_media_driver.c
++++ b/drivers/media/virtio/virtio_media_driver.c
+@@ -54,7 +54,7 @@ virtio_media_session_create(struct virtio_media *vv,
+ 	struct virtio_media_session *session;
+ 	int ret;
+
+-	session = kzalloc_obj(*session, GFP_KERNEL);
++	session = kzalloc(sizeof(*session), GFP_KERNEL);
+ 	if (!session)
+ 		goto err_session;
+
+--
+2.55.0.737.g08866a6d13-goog
